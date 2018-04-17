@@ -113,10 +113,12 @@ def about():
 def sniffer():
     return render_template("sniffer.html")
 
-@app.route('/predict', methods=['GET', 'POST'])
-def predict():
-    reviewData = request.get_data()
-    convertReview(reviewData)
+@app.route('/sniffer/<user_input>', methods=['GET', 'POST'])
+def predict(user_input):
+    response = encode_batch(user_input)
+    score = response[0][0]
+    return score
+    
     
 
 # @app.route('/submitted', methods=['POST'])

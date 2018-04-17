@@ -17,7 +17,8 @@ button.onclick = function () {
 function fraudAnalysis(userInput) {
     // Send user input to fraudAnalysis API
     console.log(userInput)
-    data = userInput.value
+    data = String(userInput)
+    console.log(data)
     // FUNCTION PLACEHOLDER
 
     // Visualize Output
@@ -27,11 +28,11 @@ function fraudAnalysis(userInput) {
 function sentimentAnalysis(userInput) {
     // Send user input to sentimentAnalysis API
     console.log(userInput)
-    data = userInput
+    user_input = String(userInput)
+    console.log(user_input)
     // FUNCTION PLACEHOLDER
 
     // Visualize Output
-    
     displaySentiment(data)
 }
 
