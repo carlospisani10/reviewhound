@@ -98,6 +98,10 @@ def indexNavigation():
 def about():
     return render_template("about.html")
 
+# @app.route("/sniffer.html")
+# def sniffer():
+#     return render_template("sniffer.html")
+
 
 @app.route('/sniffer.html', methods=['GET', 'POST'])
 def upload_file():
@@ -121,7 +125,7 @@ def upload_file():
 
                 # indicate that the request was a success
                 data["success"] = True
-
+        return render_template('/results.html')
         return jsonify(data)
     return render_template('/sniffer.html')
 
