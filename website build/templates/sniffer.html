@@ -78,7 +78,7 @@
                   <input type="text" class="form-control" name='userInput' placeholder="Copy/ Paste Review Here" aria-label="Copy/ Paste Review Here" aria-describedby="basic-addon2" id= "userInput">
               </form>
               <input type="button" onclick="handleSubmit()" value="Detect"/>
-              <input type="button" onclick="handleClear()" value="clear"/>
+              <!-- <input type="button" onclick="handleClear()" value="clear"/> -->
             </div>
           </div>
         </div>
@@ -98,20 +98,38 @@
     <!-- Load in JavaScript File -->
     <script type="text/javascript">
 
-      var canvas = document.querySelector('#userInput');
+      // var canvas = document.querySelector('#userInput');
 
-      function handleClear() {
-          var canvas = document.getElementById("userInput");
-          var context = canvas.getContext("2d");
-          context.clearRect(0, 0, canvas.width, canvas.height);
-          context.rect(0, 0, canvasWidth, canvasHeight);
-          context.fillStyle = 'white';
-          context.fill();
-      }
+      // function handleClear() {
+      //     var canvas = document.getElementById("userInput");
+      //     var context = canvas.getContext("2d");
+      //     context.clearRect(0, 0, canvas.width, canvas.height);
+      //     context.rect(0, 0, canvasWidth, canvasHeight);
+      //     context.fillStyle = 'white';
+      //     context.fill();
+      // }
       function handleSubmit() {
           document.forms["form1"].submit();
           document.getElementById("form1").reset();
       };
+
+      // function getData(sample, callback) {
+      //   // Use a request to grab the json data needed for all charts
+      //   Plotly.d3.json(`/samples/${sample}`, function(error, sampleData) {
+      //     if (error) return console.warn(error);
+          
+      //     Plotly.d3.json('/otu', function(error, otuData) {
+      //       if (error) return console.warn(error);
+      //       callback(sampleData, otuData);
+      //     });
+      // });
+      //       Plotly.d3.json(`/metadata/${sample}`, function(error, metaData) {
+      //           if (error) return console.warn(error);
+      //           updateMetaData(metaData);
+      //       })
+      //       // BONUS - Build the Gauge Chart
+      //       buildGauge(sample);
+      //   }
   </script>
 
   </body>

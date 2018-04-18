@@ -85,8 +85,23 @@ def predict_batch(arr):
 # def init():
 #     return render_template("sniffer.html")
 
+app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+@app.route('/index.html')
+def indexNavigation():
+    return render_template("index.html")
+
+
+@app.route("/about.html")
+def about():
+    return render_template("about.html")
+
+
+@app.route('/sniffer.html', methods=['GET', 'POST'])
 def upload_file():
     data = {"success": False}
     if request.method == 'POST':
@@ -110,7 +125,7 @@ def upload_file():
                 data["success"] = True
 
         return jsonify(data)
-    return render_template("sniffer.html")
+    return render_template('/sniffer.html')
 
 if __name__ == "__main__":
     load_model()
