@@ -31,107 +31,91 @@
 
   <body>
 
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Review Hound</span>
-      <span class="site-heading-lower">Let Us Help You Sniff Out Fake Hotel Reviews</span>
-    </h1>
+        <h1 class="site-heading text-center text-white d-none d-lg-block">
+        <span class="site-heading-upper text-primary mb-3">Review Hound</span>
+        <span class="site-heading-lower">Let Us Help You Sniff Out Fake Hotel Reviews</span>
+        </h1>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="sniffer.html">Review Hound</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="index.html">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="about.html">Learn About Opinion Fraud</a>
-            </li>
-            <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="sniffer.html">Review Analyzer</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <section class="page-section">
-      <div class="container">
-        <div class="product-item-description d-flex mr-auto">
-          <div class="bg-faded p-5 rounded">
-            <div id=fraudContainer>
-              <div id=fraudDisplay></div>
-              <div id=sentimentDisplay></div>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="sniffer.html">Review Hound</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="index.html">Home
+                    <span class="sr-only">(current)</span>
+                </a>
+                </li>
+                <li class="nav-item px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="about.html">Learn About Opinion Fraud</a>
+                </li>
+                <li class="nav-item active px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="sniffer.html">Review Analyzer</a>
+                </li>
+            </ul>
             </div>
-            <p class="mb-0">Copy and paste the review you want sniffed and we will take it from here</p>
-            <hr>
-            <br>
-            <br>
-            <div class="input-group mb-3">
-              <form method="post" name="form1">
-                  <input type="text" class="form-control" name='userInput' placeholder="Copy/ Paste Review Here" aria-label="Copy/ Paste Review Here" aria-describedby="basic-addon2" id= "userInput">
-              </form>
-              <input type="button" onclick="handleSubmit()" value="Detect"/>
-              <!-- <input type="button" onclick="handleClear()" value="clear"/> -->
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+        </nav>
 
-    <footer class="footer text-faded text-center py-5">
-      <div class="container">
-        <p class="m-0 small">Copyright &copy; Your Website 2018</p>
-      </div>
-    </footer>
+        <section class="page-section">
+        <div class="container">
+            <div class="product-item-description d-flex mr-auto">
+            <div class="bg-faded p-5 rounded">
+                <div id=fraudContainer>
+                </div>
+                <div >
+                    <h1 id="result" style="margin-right:20px; margin-top:300px;float:left;"><span> </span></h1>
+                </div>
+                <p class="mb-0">Copy and paste the review you want sniffed and we will take it from here</p>
+                <hr>
+                <div class="input-group mb-3">
+                    <form method="post" name="form" role="form">
+                        <input type="text" class="form-control" name='userInput' placeholder="Copy/ Paste Review Here" aria-label="Copy/ Paste Review Here" aria-describedby="basic-addon2" id= "userInput">
+                        <button class="btn btn-lg btn-primary btn-block" type="button">Sniff Now </button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="../static/vendor/jquery/jquery.min.js"></script>
-    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Load in JavaScript File -->
-    <script type="text/javascript">
+        <footer class="footer text-faded text-center py-5">
+        <div class="container">
+            <p class="m-0 small">Copyright &copy; Your Website 2018</p>
+        </div>
+        </footer>
 
-      // var canvas = document.querySelector('#userInput');
+        <!-- Bootstrap core JavaScript -->
+        <script src="../static/vendor/jquery/jquery.min.js"></script>
+        <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-      // function handleClear() {
-      //     var canvas = document.getElementById("userInput");
-      //     var context = canvas.getContext("2d");
-      //     context.clearRect(0, 0, canvas.width, canvas.height);
-      //     context.rect(0, 0, canvasWidth, canvasHeight);
-      //     context.fillStyle = 'white';
-      //     context.fill();
-      // }
-      function handleSubmit() {
-          document.forms["form1"].submit();
-          document.getElementById("form1").reset();
-      };
-
-      // function getData(sample, callback) {
-      //   // Use a request to grab the json data needed for all charts
-      //   Plotly.d3.json(`/samples/${sample}`, function(error, sampleData) {
-      //     if (error) return console.warn(error);
-          
-      //     Plotly.d3.json('/otu', function(error, otuData) {
-      //       if (error) return console.warn(error);
-      //       callback(sampleData, otuData);
-      //     });
-      // });
-      //       Plotly.d3.json(`/metadata/${sample}`, function(error, metaData) {
-      //           if (error) return console.warn(error);
-      //           updateMetaData(metaData);
-      //       })
-      //       // BONUS - Build the Gauge Chart
-      //       buildGauge(sample);
-      //   }
-  </script>
-
-  </body>
+        <!-- Load in JavaScript File -->
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="../static/js/jquery-1.3.2.min.js"></script>
+        <!-- <script src="../static/js/index.js"></script> -->
+        <script type="text/javascript">
+            $(function() {
+                $('button').click(function() {
+                    var userReview = $('#userInput').val();
+                    $.ajax({
+                        url: '/prediction',
+                        data: $('form').serialize(),
+                        type: 'POST',
+                        success: function(response) {
+                            $('#result').text(' Predicted Output: '+ response);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
 
 </html>

@@ -87,47 +87,39 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("sniffer3.html")
 
-@app.route('/index.html')
-def indexNavigation():
-    return render_template("index.html")
+# @app.route('/prediction', methods=['GET', 'POST'])
+# def predict():
+#     x = userInput
+#     with graph.as_default():
+#         out = model.predict(x)
+#         response = np.array_str(np.argmax(out,axis=1))
+#         return response	
 
-
-@app.route("/about.html")
-def about():
-    return render_template("about.html")
-
-# @app.route("/sniffer.html")
-# def sniffer():
-#     return render_template("sniffer.html")
-
-
-@app.route('/sniffer.html', methods=['GET', 'POST'])
-def upload_file():
+@app.route('/prediction', methods=['GET', 'POST'],)
+def predict():
     data = {"success": False}
     if request.method == 'POST':
-        if request.form.get('userInput'):
-            # read the base64 encoded string
-            review = request.form.get('userInput')
+        # read the base64 encoded string
+        review = request.form.get('userInput')
+        # review = "this is a test"
 
-            # Get the tensorflow default graph
-            global graph
-            with graph.as_default():
+        # Get the tensorflow default graph
+        global graph
+        with graph.as_default():
 
-                # Use the model to make a prediction
+            # Use the model to make a prediction
 
-                # prediction = predict_batch(review)
-                predictions = predict_batch([review])
-                # data["prediction"] = str(prediction)
-                data["review"] = review
-                data["predictions"] = str(predictions)
+            # prediction = predict_batch(review)
+            predictions = predict_batch([review])
+            # data["prediction"] = str(prediction)
+            data["review"] = review
+            data["predictions"] = str(predictions)
 
-                # indicate that the request was a success
-                data["success"] = True
-        # return render_template('/results.html')
-        return jsonify(data)
-    return render_template('/sniffer.html')
+            # indicate that the request was a success
+            data["success"] = True
+    return jsonify(data)
 
 if __name__ == "__main__":
     load_model()
