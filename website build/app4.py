@@ -1,7 +1,5 @@
 import os
 import io
-import numpy as np
-from PIL import Image
 import base64
 from flask import Flask, render_template, request
 import os
