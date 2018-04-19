@@ -1,3 +1,6 @@
+import os
+import io
+import base64
 from flask import Flask, render_template, request
 import os
 import pandas as pd
@@ -15,40 +18,23 @@ from keras.models import Sequential
 from keras.layers import MaxPooling1D, Conv1D, Flatten, Dropout, Dense
 from keras.layers.embeddings import Embedding
 from keras.preprocessing import sequence
-from keras.callbacks import EarlyStopping
-# from keras.datasets import imdb
+import tensorflow as tf
 
+import keras
+from keras.preprocessing import image
+from keras.preprocessing.image import img_to_array
+from keras import backend as K
 
-# init flask app
+from flask import Flask, request, redirect, jsonify, render_template
+
 app = Flask(__name__)
+model = None
+graph = None
 
-# global variables
-#global model
-#model = init()
-
-# model importing
-#load bag of words
 PATH = './Sentiment_Model/optimal_dict3.json'
 with open(PATH) as json_data:
     d = json.load(json_data)
 word_dict = pd.Series(d)
-
-#load model function
-def build_model(words, vec_len, review_len):
-    model = Sequential()
-    model.add(Embedding(words, vec_len, input_length=review_len))
-    model.add(Dropout(0.25))
-    model.add(Conv1D(32, 3, padding="same"))
-    model.add(MaxPooling1D(pool_size=2))
-    model.add(Conv1D(16, 3, padding="same"))
-    model.add(Flatten())
-    model.add(Dropout(0.25))
-    model.add(Dense(100, activation="sigmoid"))
-    model.add(Dropout(0.25))
-    model.add(Dense(1, activation="sigmoid"))
-    model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
-    # model.summary()
-    return model
 
 # Parameters
 version = 4
@@ -59,13 +45,13 @@ patience = 5
 batch_size = 40
 epochs = 3
 
-# Build model
-model = build_model(words, vec_len, review_len)
+def load_model():
+    global model
+    global graph
+    model = keras.models.load_model("./Sentiment_Model/optimalfloyds3.h5")
+    graph = K.get_session().graph
 
- # Model
-from keras.preprocessing import sequence
-from keras.models import load_model
-model = load_model(("./Sentiment_Model/optimalfloyds3.h5"))
+load_model()
 
 #econding functions
 def encode_sentence(text):
@@ -94,7 +80,8 @@ def predict_batch(arr):
     return result
 
 
-# app routes
+app = Flask(__name__)
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -103,51 +90,36 @@ def index():
 def indexNavigation():
     return render_template("index.html")
 
-
 @app.route("/about.html")
 def about():
     return render_template("about.html")
 
-
 @app.route("/sniffer.html")
 def sniffer():
-    return render_template("sniffer.html")
+    return render_template("/sniffer.html")
 
-@app.route('/sniffer/<user_input>', methods=['GET', 'POST'])
-def predict(user_input):
-    response = encode_batch(user_input)
-    score = response[0][0]
-    return score
-    
-    
+@app.route('/prediction', methods=['GET', 'POST'],)
+def predict():
+    data = {"success": False}
+    if request.method == 'POST':
+        # read the base64 encoded string
+        # review = request.form.get('userInput')
+        review =  request.form['userInput'];
 
-# @app.route('/submitted', methods=['POST'])
-# def submitted_form():
-#     name = request.form['Carlos Guevara']
-#     email = request.form['guevara.t.carlos@gmail.com']
-#     ####idk what these are for
-#     site = request.form['site_url']
-#     comments = request.form['comments']
+        # Get the tensorflow default graph
+        global graph
+        with graph.as_default():
 
-# @app.errorhandler(500)
-# def server_error(e):
-#     # log error and stacktrace
-#     logging.exception('An error occured during a request.')
-#     return 'An internal error occured.', 500
-# # Heroku Mode
+            # Use the model to make a prediction
 
-print(predict_batch([
-"yes",
-"good",
-"this is the best thing ever",
-"nice",
-"bad",
-"such a horrible judgement",
-"no",
-"shitty"
-]))
+            # prediction = predict_batch(review)
+            prediction = predict_batch([review])
+            # data["prediction"] = str(prediction)
+            data["prediction_string"] = str(prediction)
+            output = data['prediction_string'][2:7]
+            output2 = float(output)
+    return jsonify(output2)
 
 if __name__ == "__main__":
-    
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    load_model()
+    app.run()
